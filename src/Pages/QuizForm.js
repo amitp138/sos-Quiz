@@ -6,8 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import QuesItem from "../components/QuesItem";
 import "./QuizForm.css";
 
-const QuizForm = () => {
- 
+const QuizForm = ({ admin }) => {
   const [QuizQues, setQuizQues] = useState([]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -78,7 +77,6 @@ const QuizForm = () => {
         desc: desc,
         QuizQues: QuizQues,
       });
-     
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -91,63 +89,65 @@ const QuizForm = () => {
 
   return (
     <div className="cont ">
-       (
+      {admin ? (
         <>
           <div>
-            <form>
-              <div className=" g-3 align-items-center m-1">
-                <label htmlFor="title">Title</label>
+            <div>
+              <form>
+                <div className=" g-3 align-items-center m-1">
+                  <label htmlFor="title">Title</label>
 
-                <input
-                  type="text"
-                  name="title"
-                  value={title}
-                  onChange={handletitle}
-                  className="form-control w-75"
+                  <input
+                    type="text"
+                    name="title"
+                    value={title}
+                    onChange={handletitle}
+                    className="form-control w-75"
+                  />
+                </div>
+                <div className=" g-3 form-group m-1">
+                  <label htmlFor="info">Description</label>
+
+                  <textarea
+                    name="info"
+                    id="desc"
+                    cols="60"
+                    rows="3"
+                    value={desc}
+                    onChange={handledesc}
+                    className="form-control w-75 m-1"
+                  ></textarea>
+                </div>
+                <FormCard
+                  AddQues={AddQues}
+                  quest={quest}
+                  a={a}
+                  b={b}
+                  c={c}
+                  d={d}
+                  cans={cans}
+                  handleQues={handleQues}
+                  handlea={handlea}
+                  handleb={handleb}
+                  handlec={handlec}
+                  handled={handled}
+                  handlecans={handlecans}
                 />
-              </div>
-              <div className=" g-3 form-group m-1">
-                <label htmlFor="info">Description</label>
 
-                <textarea
-                  name="info"
-                  id="desc"
-                  cols="60"
-                  rows="3"
-                  value={desc}
-                  onChange={handledesc}
-                  className="form-control w-75 m-1"
-                ></textarea>
-              </div>
-              <FormCard
-                AddQues={AddQues}
-                quest={quest}
-                a={a}
-                b={b}
-                c={c}
-                d={d}
-                cans={cans}
-                handleQues={handleQues}
-                handlea={handlea}
-                handleb={handleb}
-                handlec={handlec}
-                handled={handled}
-                handlecans={handlecans}
-              />
-
-              <button
-                className="btn btn-success ml-3 submit "
-                onClick={handlesubmit}
-              >
-                submit
-              </button>
-            </form>
+                <button
+                  className="btn btn-success ml-3 submit "
+                  onClick={handlesubmit}
+                >
+                  submit
+                </button>
+              </form>
+            </div>
           </div>
-          <div>
-            <QuesItem QuizQues={QuizQues} setQuizQues={setQuizQues} />
-          </div>
+          <QuesItem QuizQues={QuizQues} setQuizQues={setQuizQues} />
         </>
-      )
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

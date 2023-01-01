@@ -1,65 +1,41 @@
 import React, { useState } from "react";
 import "./Admin.css";
-import { auth } from "../firebase-config";
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import {
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
-const Admin = ({ user, setUser }) => {
+const Admin = ({ admin, setAdmin }) => {
   const navigate = useNavigate();
-  const [adminEmail, setAdminEmail] = useState("");
+  const [adminId, setAdminId] = useState("");
   const [password, setPassword] = useState("");
-
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
-  const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(auth, adminEmail, password);
-
-      if (user) {
-        alert("user authenticated");
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  const logout = async () => {
-    await signOut(auth);
-  };
-
-  const handleAdminEmail = (e) => {
-    setAdminEmail(e.target.value);
+  const handleAdminId = (e) => {
+    setAdminId(e.target.value);
   };
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
+  const handleLogin = () => {
+    if (adminId === "SOSTECH" && password === "sostechincc22") {
+      setAdmin(!admin);
+      alert("user authenticated");
+
+      navigate("/");
+    } else {
+      alert("wrong crediatials");
+    }
+  };
 
   return (
     <div className=" border Login ">
       <form className="m-5">
-        <p>Signed In by: {user?.email}</p>
-        <Button
-          onClick={logout}
-          className="text-light btn btn-info"
-          style={{ marginLeft: "16vw" }}
-        >
-          LogOut
-        </Button>
         <div className="form-group m-3">
-          <label htmlFor="Name">AdminEmail</label>
+          <label htmlFor="Name">AdminId</label>
           <input
-            type="email"
+            type="text"
             className="form-control  m-2 logininp"
             id="Name"
-            placeholder="Enter AdminEmail"
-            value={adminEmail}
-            onChange={handleAdminEmail}
+            placeholder="Enter Name"
+            value={adminId}
+            onChange={handleAdminId}
           />
         </div>
         <div className="form-group m-3">
@@ -69,13 +45,13 @@ const Admin = ({ user, setUser }) => {
             className="form-control m-2 logininp"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            placeholder="Enter Password"
+            placeholder="Enter password"
             value={password}
             onChange={handlePassword}
           />
         </div>
         <Button
-          onClick={login}
+          onClick={handleLogin}
           className="text-light btn btn-info"
           style={{ marginLeft: "16vw" }}
         >

@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-const Navigation = ({ user }) => {
+const Navigation = ({ admin }) => {
   
   return (
     <div>
@@ -21,7 +21,7 @@ const Navigation = ({ user }) => {
               <Link to="/admin" className="nav-link">
                 Admin
               </Link>
-              {user && (
+              {admin ? (
                 <>
                   {" "}
                   <Link to="/form" className="nav-link">
@@ -31,7 +31,7 @@ const Navigation = ({ user }) => {
                     Scores
                   </Link>
                 </>
-              )}
+              ):<div></div>}
             </Nav>
           </Navbar.Collapse>
         </Container>

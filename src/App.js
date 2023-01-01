@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import QuizForm from "./Pages/QuizForm";
 import QuizShow from "./Pages/QuizShow";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -15,14 +15,14 @@ import Admin from "./Pages/Admin";
 const App = () => {
   const [quesId, setQuizId] = useState();
   const [details, setDetails] = useState([]);
+  const [admin,setAdmin]=useState(false)
  
-  const [user, setUser] = useState({});
   return (
     <Router>
-      <Navigation user={user}/>
+      <Navigation admin={admin}/>
       <Routes>
         <Route exact path="/" element={<QuizShow setQuizId={setQuizId} />} />
-        <Route exact path="/form" element={<QuizForm />} />
+        <Route exact path="/form" element={<QuizForm admin={admin}/>} />
         <Route
           exact
           path="/login"
@@ -36,9 +36,9 @@ const App = () => {
           element={<QuizUser details={details} />}
         />
         <Route exact path="/result" element={<Result />} />
-        <Route exact path="/score" element={<Scores  />} />
-        <Route exact path="/score/:id" element={<TableResult  />} />
-        <Route exact path="/admin" element={<Admin user={user} setUser={setUser}/>}/>
+        <Route exact path="/score" element={<Scores admin={admin} />} />
+        <Route exact path="/score/:id" element={<TableResult admin={admin} />} />
+        <Route exact path="/admin" element={<Admin admin={admin} setAdmin={setAdmin}/>}/>
       </Routes>
     </Router>
   );

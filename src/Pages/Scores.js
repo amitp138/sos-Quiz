@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-const Scores = () => {
+const Scores = ({ admin }) => {
   const usersCollectionRef = collection(db, "questions");
   const [quizarry, setQuizarry] = useState([]);
 
@@ -17,8 +17,8 @@ const Scores = () => {
   }, []);
   return (
     <form>
-   
-       { quizarry.map((quizItem, index) => {
+      {admin ? (
+        quizarry.map((quizItem, index) => {
           return (
             <div
               key={index}
@@ -44,7 +44,10 @@ const Scores = () => {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div></div>
+      )}
     </form>
   );
 };
