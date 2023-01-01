@@ -64,7 +64,7 @@ const UserQues = ({
 
   return (
     <div className="body">
-      <h2 className="mb-5">Topic:{title}</h2>
+      <h2 className="mb-4">Topic:{title}</h2>
       <div className="quiz-cont" id="quiz">
         <div
           className="quiz-header"
